@@ -58,6 +58,63 @@ The following parameters can be used to create a custom query:
 
 **Note:** At this time the wordpress.org API only supports querying by one parameter at a time, so currently only one parameter can be included in the shortcode to build the query.
 
+= Advanced Usage =
+
+This plugin includes a number of filters that you can use to customize the display of the cards and add plugin information to the cards. I recommend reading through the code if you really want to understand how the filters can be used. Here are some examples:
+
+**Use custom URLs**
+
+	function custom_plugin_card_urls( $plugin_url, $plugin = null ) {
+
+		// Point URLs to a custom endpoint based on the plugin slug
+	    $plugin_url = 'https://domain.com/custom-plugins/' . esc_attr( $plugin->slug );
+
+	    // Change the URL of a specific plugin
+	    if ( 'woocommerce' === $plugin->slug ) {
+	        $plugin_url = 'http://www.woothemes.com/woocommerce/';
+	    }
+
+	    return $plugin_url;
+
+	}
+	add_filter( 'plugin_cards_plugin_url', 'custom_plugin_card_urls', 10, 2 );
+
+The complete list of simple filters that work exactly like plugin_cards_plugin_urls is:
+
+	plugin_cards_plugin_url
+	plugin_cards_plugin_name
+	plugin_cards_short_description
+	plugin_cards_plugin_author
+
+There are also some advanced filters that allow you to override the HTML output of entire sections, including:
+
+	plugin_cards_plugin_icon
+	plugin_cards_plugin_rating
+	plugin_cards_last_updated
+	plugin_cards_install_count
+	plugin_cards_plugin_compatibility
+
+These filters can be used like this:
+
+**Use custom plugin icons**
+
+	function custom_plugin_card_icons( $plugin_icon, $plugin = null, $plugin_url = '' ) {
+
+		// Replace all plugin icons with kittens
+		$plugin_icon = '<a href="' . esc_url( $plugin_url ) . '" class="plugin-icon"><img src="http://domain.com/kittens.jpg" /></a>';
+
+		// Replace the icon for a specific plugin
+	    if ( 'equal-height-columns' === $plugin->slug ) {
+	        $plugin_icon = '<a href="' . esc_url( $plugin_url ) . '" class="plugin-icon"><img src="http://domain.com/custom-icon.jpg" /></a>';
+	    }
+
+		return $plugin_icon;
+
+	}
+	add_filter( 'plugin_cards_plugin_icon', 'custom_plugin_card_icons', 10, 3 );
+
+If anyone wants a hook added just let me know. Pull request are also welcome [on Github](https://github.com/BraadMartin/plugin-cards "Plugin Cards on Github").
+
 == Installation ==
 
 = Manual Installation =

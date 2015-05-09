@@ -202,6 +202,9 @@ function pc_render_plugin_card( $plugin ) {
 			$plugin_url = 'https://wordpress.org/plugins/' . esc_attr( $plugin->slug ) . '/';
 		}
 
+		// And allow it to be filtered.
+		$plugin_url = apply_filters( 'plugin_cards_plugin_url', $plugin_url, $plugin );
+
 		ob_start();
 
 		?>
@@ -209,8 +212,8 @@ function pc_render_plugin_card( $plugin ) {
 			<div class="plugin-card-top">
 				<?php 
 
-				// Allow the plugin icon output to be overridden.
-				$plugin_icon = apply_filters( 'plugin_cards_plugin_icon', '', $plugin );
+				// Allow this whole section to be overridden.
+				$plugin_icon = apply_filters( 'plugin_cards_plugin_icon', '', $plugin, $plugin_url );
 	
 				// Use the override if it's there, otherwise output the standard icon.
 				if ( $plugin_icon ) {
@@ -272,77 +275,113 @@ function pc_render_plugin_card( $plugin ) {
 			</div>
 			<div class="plugin-card-bottom">
 				<div class="column-rating">
-					<div class="star-rating">
-						<?php
-						$rating = (int)$plugin->rating;
+					<?php
+					// Allow this whole section to be overridden.
+					$plugin_rating = apply_filters( 'plugin_cards_plugin_rating', '', $plugin );
 
-						// Star 1
-						if ( $rating >= 20 ) {
-							echo '<span class="star fa fa-star"></span>';
-						} elseif ( $rating >= 10 ) {
-							echo '<span class="star fa fa-star-half-full"></span>';
-						} else {
-							echo '<span class="star fa fa-star-o"></span>';
-						}
-
-						// Star 2
-						if ( $rating >= 40 ) {
-							echo '<span class="star fa fa-star"></span>';
-						} elseif ( $rating >= 30 ) {
-							echo '<span class="star fa fa-star-half-full"></span>';
-						} else {
-							echo '<span class="star fa fa-star-o"></span>';
-						}
-
-						// Star 3
-						if ( $rating >= 60 ) {
-							echo '<span class="star fa fa-star"></span>';
-						} elseif ( $rating >= 50 ) {
-							echo '<span class="star fa fa-star-half-full"></span>';
-						} else {
-							echo '<span class="star fa fa-star-o"></span>';
-						}
-
-						// Star 4
-						if ( $rating >= 80 ) {
-							echo '<span class="star fa fa-star"></span>';
-						} elseif ( $rating >= 70 ) {
-							echo '<span class="star fa fa-star-half-full"></span>';
-						} else {
-							echo '<span class="star fa fa-star-o"></span>';
-						}
-
-						// Star 5
-						if ( $rating >= 98 ) {
-							echo '<span class="star fa fa-star"></span>';
-						} elseif ( $rating >= 90 ) {
-							echo '<span class="star fa fa-star-half-full"></span>';
-						} else {
-							echo '<span class="star fa fa-star-o"></span>';
-						}
+					if ( $plugin_rating ) {
+						echo wp_kses_post( $plugin_rating );
+					} else {
 						?>
-					</div>
-					<span class="num-ratings">(<?php echo number_format_i18n( $plugin->num_ratings ); ?>)</span>
+						<div class="star-rating">
+							<?php
+							$rating = (int)$plugin->rating;
+
+							// Star 1
+							if ( $rating >= 20 ) {
+								echo '<span class="star fa fa-star"></span>';
+							} elseif ( $rating >= 10 ) {
+								echo '<span class="star fa fa-star-half-full"></span>';
+							} else {
+								echo '<span class="star fa fa-star-o"></span>';
+							}
+
+							// Star 2
+							if ( $rating >= 40 ) {
+								echo '<span class="star fa fa-star"></span>';
+							} elseif ( $rating >= 30 ) {
+								echo '<span class="star fa fa-star-half-full"></span>';
+							} else {
+								echo '<span class="star fa fa-star-o"></span>';
+							}
+
+							// Star 3
+							if ( $rating >= 60 ) {
+								echo '<span class="star fa fa-star"></span>';
+							} elseif ( $rating >= 50 ) {
+								echo '<span class="star fa fa-star-half-full"></span>';
+							} else {
+								echo '<span class="star fa fa-star-o"></span>';
+							}
+
+							// Star 4
+							if ( $rating >= 80 ) {
+								echo '<span class="star fa fa-star"></span>';
+							} elseif ( $rating >= 70 ) {
+								echo '<span class="star fa fa-star-half-full"></span>';
+							} else {
+								echo '<span class="star fa fa-star-o"></span>';
+							}
+
+							// Star 5
+							if ( $rating >= 98 ) {
+								echo '<span class="star fa fa-star"></span>';
+							} elseif ( $rating >= 90 ) {
+								echo '<span class="star fa fa-star-half-full"></span>';
+							} else {
+								echo '<span class="star fa fa-star-o"></span>';
+							}
+							?>
+						</div>
+						<span class="num-ratings">(<?php echo number_format_i18n( $plugin->num_ratings ); ?>)</span>
+						<?php
+					} ?>
 				</div>
 				<div class="column-updated">
-					<strong><?php _e( 'Last Updated', 'plugin-cards' ); ?>:</strong> <span>
-						<?php printf( __( '%s ago', 'plugin-cards' ), human_time_diff( strtotime( $plugin->last_updated ) ) ); ?>
-					</span>
+					<?php 
+					// Allow this whole section to be overridden.
+					$last_updated = apply_filters( 'plugin_cards_last_updated', '', $plugin );
+
+					if ( $last_updated ) {
+						echo wp_kses_post( $last_updated );
+					} else {
+						?>
+						<strong><?php _e( 'Last Updated', 'plugin-cards' ); ?>:</strong> <span>
+							<?php printf( __( '%s ago', 'plugin-cards' ), human_time_diff( strtotime( $plugin->last_updated ) ) ); ?>
+						</span>
+						<?php	
+					} ?>
 				</div>
 				<div class="column-downloaded">
 					<?php
-					if ( $plugin->active_installs >= 1000000 ) {
-						$active_installs_text = _x( '1+ Million', 'Active plugin installs', 'plugin-cards' );
+					// Allow this whole section to be overridden.
+					$install_count = apply_filters( 'plugin_cards_install_count', '', $plugin );
+
+					if ( $install_count ) {
+						echo wp_kses_post( $install_count );
 					} else {
-						$active_installs_text = number_format_i18n( $plugin->active_installs ) . '+';
+
+						if ( $plugin->active_installs >= 1000000 ) {
+							$active_installs_text = _x( '1+ Million', 'Active plugin installs', 'plugin-cards' );
+						} else {
+							$active_installs_text = number_format_i18n( $plugin->active_installs ) . '+';
+						}
+						printf( __( '%s Active Installs', 'plugin-cards' ), $active_installs_text );
 					}
-					printf( __( '%s Active Installs', 'plugin-cards' ), $active_installs_text );
 					?>
 				</div>
 				<div class="column-compatibility">
 					<?php
-					if ( ! empty( $plugin->tested ) ) {
-						echo '<span class="compatibility-compatible"><strong>' . __( 'Compatible up to', 'plugin-cards' ) . ':</strong> ' . esc_attr( $plugin->tested ) . '</span>';
+					// Allow this whole section to be overridden.
+					$compatibility = apply_filters( 'plugin_cards_plugin_compatibility', '', $plugin );
+
+					if ( $compatibility ) {
+						echo wp_kses_post( $compatibility );
+					} else {
+					
+						if ( ! empty( $plugin->tested ) ) {
+							echo '<span class="compatibility-compatible"><strong>' . __( 'Compatible up to', 'plugin-cards' ) . ':</strong> ' . esc_attr( $plugin->tested ) . '</span>';
+						}
 					}
 					?>
 				</div>
