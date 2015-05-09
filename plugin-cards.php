@@ -146,6 +146,10 @@ function pc_plugin_cards_shortcode( $atts ) {
 	// Confirm the call to plugins_api worked.
 	if ( is_object( $plugin_info ) ) {
 
+		print '<pre>';
+		print_r( $plugin_info );
+		print '</pre>';
+
 		$output .= '<div class="plugin-cards">';
 
 		// Prioritize querying, first by slug, then author, then tag, then browse, then search
@@ -183,10 +187,16 @@ function pc_render_plugin_card( $plugin ) {
 		wp_enqueue_style( 'open-sans-google-font' );
 		wp_enqueue_style( 'plugin-cards' );
 
+		// Sometimes the Plugin URI hasn't been set, so let's fallback to building it manually
+		$plugin_url = esc_url( $plugin->homepage );
+		if ( ! $plugin_url ) {
+			$plugin_url = 'https://wordpress.org/plugins/' . esc_attr( $plugin->slug ) . '/';
+		}
+
 		ob_start();
 
 		?>
-		<div class="plugin-card plugin-card-<?php echo $plugin->slug ?>">
+		<div class="plugin-card plugin-card-<?php echo esc_attr( $plugin->slug ) ?>">
 			<div class="plugin-card-top">
 				<?php 
 
@@ -197,43 +207,43 @@ function pc_render_plugin_card( $plugin ) {
 				if ( $plugin_icon ) {
 					echo wp_kses_post( $plugin_icon );
 				} else {
-				?>
-				<a href="<?php echo esc_url( $plugin->homepage ); ?>" class="plugin-icon">
-					<?php
-					$plugin_icons = $plugin->icons;
-					if ( ! empty( $plugin_icons['svg'] ) ) {
-						
-						// We have an SVG
-						$img_src = $plugin_icons['svg'];
-						echo '<img src="' . $img_src . '" />';
-					
-					} elseif ( ! empty( $plugin_icons['2x'] ) ) {
-						
-						// We have a Retina icon
-						$img_src = $plugin_icons['2x'];
-						echo '<img src="' . $img_src . '" />';
-					
-					} elseif ( ! empty( $plugin_icons['1x'] ) ) {
-						
-						// We have a standard icon
-						$img_src = $plugin_icons['1x'];
-						echo '<img src="' . $img_src . '" />';
-					
-					} elseif ( ! empty( $plugin_icons['default'] ) ) {
-
-						// We have a default
-						$img_src = $plugin_icons['default'];
-						echo '<img src="' . $img_src . '" />';
-					}
 					?>
-				</a>
+					<a href="<?php echo esc_url( $plugin_url ); ?>" class="plugin-icon">
+						<?php
+						$plugin_icons = $plugin->icons;
+						if ( ! empty( $plugin_icons['svg'] ) ) {
+							
+							// We have an SVG
+							$img_src = $plugin_icons['svg'];
+							echo '<img src="' . $img_src . '" />';
+						
+						} elseif ( ! empty( $plugin_icons['2x'] ) ) {
+							
+							// We have a Retina icon
+							$img_src = $plugin_icons['2x'];
+							echo '<img src="' . $img_src . '" />';
+						
+						} elseif ( ! empty( $plugin_icons['1x'] ) ) {
+							
+							// We have a standard icon
+							$img_src = $plugin_icons['1x'];
+							echo '<img src="' . $img_src . '" />';
+						
+						} elseif ( ! empty( $plugin_icons['default'] ) ) {
+
+							// We have a default
+							$img_src = $plugin_icons['default'];
+							echo '<img src="' . $img_src . '" />';
+						}
+						?>
+					</a>
 				<?php } ?>
 				<div class="plugin-name">
 					<h4>
-						<a href="<?php echo esc_url( $plugin->homepage ); ?>" target="_blank"><?php echo apply_filters( 'plugin_cards_plugin_name', $plugin->name, $plugin ); ?></a>
+						<a href="<?php echo esc_url( $plugin_url ); ?>" target="_blank"><?php echo esc_html( apply_filters( 'plugin_cards_plugin_name', $plugin->name, $plugin ) ); ?></a>
 					</h4>
 				</div>
-				<?php /*
+				<?php /* Turning this off for now.
 				<div class="action-links">
 					<ul class="plugin-action-buttons">
 						<li>
@@ -347,6 +357,10 @@ add_action( 'init', 'pc_plugin_cards_load_bfa' );
 require_once ( dirname( __FILE__ ) . '/lib/better-font-awesome-library/better-font-awesome-library.php' );
 function pc_plugin_cards_load_bfa() {
 
-    // Initialize the Better Font Awesome Library.
-    Better_Font_Awesome_Library::get_instance();
+	// Only if we're on the front end.
+	if ( ! is_admin() ) {
+
+	    // Initialize the Better Font Awesome Library.
+	    Better_Font_Awesome_Library::get_instance();
+	}
 }
