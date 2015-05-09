@@ -1,0 +1,221 @@
+/**
+ * Plugin Cards CSS.
+ *
+ * Ripped straight from the wp-admin as much as possible.
+ */
+.plugin-cards {
+	overflow: hidden;
+}
+
+.plugin-cards .plugin-card {
+	float: left;
+	margin: 0 8px 16px;
+	width: 48.5%;
+	width: -webkit-calc( 50% - 8px );
+	width: calc( 50% - 8px );
+	background-color: #fff;
+	border: 1px solid #dedede;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 13px;
+	font-weight: 400;
+}
+
+.plugin-cards .plugin-card:nth-child(odd) {
+	clear: both;
+	margin-left: 0;
+}
+
+.plugin-cards .plugin-card:nth-child(even) {
+	margin-right: 0;
+}
+
+@media screen and ( min-width: 1600px ) {
+	.plugin-cards .plugin-card {
+		width: 30%;
+		width: -webkit-calc( 33.1% - 8px );
+		width: calc( 33.1% - 8px );
+	}
+
+	.plugin-cards .plugin-card:nth-child(odd) {
+		clear: none;
+		margin-left: 8px;
+	}
+
+	.plugin-cards .plugin-card:nth-child(even) {
+		margin-right: 8px;
+	}
+
+	.plugin-cards .plugin-card:nth-child(3n+1) {
+		clear: both;
+		margin-left: 0;
+	}
+
+	.plugin-cards .plugin-card:nth-child(3n) {
+		margin-right: 0;
+	}
+}
+
+@media screen and ( max-width: 782px ) {
+	.plugin-cards .plugin-card {
+		margin-left: 0;
+		margin-right: 0;
+		width: 100%;
+	}
+}
+
+.plugin-cards .plugin-card-top {
+	position: relative;
+	padding: 20px 20px 10px;
+	min-height: 135px;
+}
+
+.plugin-cards div.action-links,
+.plugin-cards .plugin-action-buttons {
+	margin: 0; /* Override existing margins */
+}
+
+.plugin-cards .plugin-card h4 {
+	margin: 0 0 12px;
+	font-size: 18px;
+	line-height: 1.3;
+}
+
+.plugin-cards .plugin-card p {
+	font-size: 13px;
+	line-height: 1.5;
+	margin: 1em 0;
+	color: #32373c;
+}
+
+.plugin-cards .plugin-card a {
+	outline: 0;
+	text-decoration: none;
+}
+
+.plugin-cards .plugin-card strong {
+	font-weight: 600;
+}
+
+.plugin-cards .plugin-card .plugin-name,
+.plugin-cards .plugin-card .plugin-description {
+	margin-left: 148px; /* icon + margin */
+	/* margin-right: 120px; action links */
+}
+
+.plugin-cards .plugin-card .plugin-name a {
+	text-decoration: none;
+}
+
+.plugin-cards .plugin-card .action-links {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	width: 120px;
+}
+
+.plugin-cards .plugin-action-buttons {
+	clear: right;
+	float: right;
+	margin-left: 2em;
+	margin-bottom: 1em;
+	text-align: right;
+	list-style-type: none;
+}
+
+.plugin-cards .plugin-action-buttons li {
+	margin-bottom: 10px;
+}
+
+.plugin-cards .plugin-action-buttons .button {
+	display: inline-block;
+	text-decoration: none;
+	font-size: 13px;
+	line-height: 26px;
+	height: 28px;
+	margin: 0;
+	padding: 0 10px 1px;
+	cursor: pointer;
+	border-width: 1px;
+	border-style: solid;
+	-webkit-appearance: none;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	white-space: nowrap;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	color: #555;
+	border-color: #ccc;
+	background: #f7f7f7;
+	-webkit-box-shadow: inset 0 1px 0 #fff, 0 1px 0 rgba(0,0,0,.08);
+	box-shadow: inset 0 1px 0 #fff, 0 1px 0 rgba(0,0,0,.08);
+	vertical-align: top;
+	text-transform: none;
+}
+
+.plugin-cards .plugin-action-buttons .button:hover {
+	background: #fafafa;
+	border-color: #999;
+	color: #23282d;
+}
+
+.plugin-cards .plugin-card-bottom {
+	clear: both;
+	padding: 12px 20px;
+	background-color: #fafafa;
+	border-top: 1px solid #dedede;
+	overflow: hidden;
+}
+
+.plugin-cards .plugin-card-bottom .star-rating {
+	display: inline;
+	color: #ffb900;
+	font-size: 19px;
+}
+
+.plugin-cards .plugin-card-bottom .star-rating .star {
+	padding-right: 1px;
+}
+
+.plugin-cards .plugin-card .column-rating {
+	line-height: 23px;
+}
+
+.plugin-cards .plugin-card .column-rating,
+.plugin-cards .plugin-card .column-updated {
+	margin-bottom: 4px;
+}
+
+.plugin-cards .plugin-card .column-rating,
+.plugin-cards .plugin-card .column-downloaded {
+	float: left;
+	clear: left;
+	max-width: 180px;
+}
+
+.plugin-cards .plugin-card .column-updated,
+.plugin-cards .plugin-card .column-compatibility {
+	text-align: right;
+	float: right;
+	clear: right;
+	width: 65%;
+	width: -webkit-calc( 100% - 180px );
+	width: calc( 100% - 180px );
+}
+
+.plugin-cards .plugin-icon {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	width: 128px;
+	height: 128px;
+	margin: 0 20px 20px 0;
+}
+
+.plugin-cards .plugin-icon img {
+	width: 128px;
+	height: 128px;
+}
