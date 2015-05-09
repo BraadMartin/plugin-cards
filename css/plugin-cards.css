@@ -39,7 +39,7 @@
 .plugin-cards .plugin-card-top {
 	position: relative;
 	padding: 20px 20px 10px;
-	min-height: 135px;
+	min-height: 168px;
 }
 
 .plugin-cards div.action-links,
@@ -197,6 +197,9 @@
 		width: 92px;
 		height: 92px;
 		margin-right: 16px;
+	}
+	.plugin-cards .plugin-card-top {
+		min-height: 124px;
 	}
 	.plugin-cards .plugin-icon img {
 		width: 92px;
