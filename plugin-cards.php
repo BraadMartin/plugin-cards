@@ -42,14 +42,17 @@ function pc_plugin_cards_load_translations() {
 	load_plugin_textdomain( 'plugin-cards', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 }
 
-add_action( 'init', 'pc_plugin_cards_enqueue_scripts' );
+add_action( 'wp_enqueue_scripts', 'pc_plugin_cards_enqueue_scripts' );
 /**
  * Register our CSS.
  */
 function pc_plugin_cards_enqueue_scripts() {
 
-	wp_register_style( 'open-sans-google-font', '//fonts.googleapis.com/css?family=Open+Sans:400,600' );
-	wp_register_style( 'plugin-cards', plugins_url( '/css/plugin-cards.css', __FILE__ ) );
+	// Only on the front end.
+	if ( ! is_admin() ) {
+		wp_register_style( 'open-sans-google-font', '//fonts.googleapis.com/css?family=Open+Sans:400,600' );
+		wp_register_style( 'plugin-cards', plugins_url( '/css/plugin-cards.css', __FILE__ ) );
+	}
 }
 
 add_shortcode( 'plugin_cards', 'pc_plugin_cards_shortcode' );
@@ -72,7 +75,7 @@ function pc_plugin_cards_shortcode( $atts ) {
 	$browse = $atts['browse'];
 	$search = $atts['search'];
 
-	// Set up query fields
+	// Set up query fields.
 	$fields = array(
 		'banners' => true,
 		'icons' => true,
@@ -152,17 +155,19 @@ function pc_plugin_cards_shortcode( $atts ) {
 		print '</pre>';
 		*/
 
-		$output .= '<div class="plugin-cards">';
-
-		// Prioritize querying, first by slug, then author, then tag, then browse, then search
+		// Prioritize querying, first by slug, then author, then tag, then browse, then search.
 		if ( $slug ) {
 
+			$output .= '<div class="plugin-cards single-plugin">';
+
 			// We are querying by slug, so we only have one plugin to display.
-			$output .= pc_render_plugin_card( $plugin_info, 'slug' );
+			$output .= pc_render_plugin_card( $plugin_info );
 
 		} else {
 
-			// We are querying by author, tag, browse, or search, so likely have multiple results and need to loop.
+			$output .= '<div class="plugin-cards multiple-plugins">';
+
+			// We are querying by author, tag, browse, or search, so likely have multiple plugins and need to loop.
 			foreach( $plugin_info->plugins as $plugin ) {
 
 				$output .= pc_render_plugin_card( $plugin );
@@ -182,14 +187,14 @@ function pc_plugin_cards_shortcode( $atts ) {
  */
 function pc_render_plugin_card( $plugin ) {
 
-	// Quick sanity check
+	// Quick sanity check.
 	if ( is_object( $plugin ) ) {
 
-		// Enqueue our CSS
+		// Enqueue our CSS.
 		wp_enqueue_style( 'open-sans-google-font' );
 		wp_enqueue_style( 'plugin-cards' );
 
-		// Sometimes the Plugin URI hasn't been set, so let's fallback to building it manually
+		// Sometimes the Plugin URI hasn't been set, so let's fallback to building it manually.
 		$plugin_url = esc_url( $plugin->homepage );
 		if ( ! $plugin_url ) {
 			$plugin_url = 'https://wordpress.org/plugins/' . esc_attr( $plugin->slug ) . '/';
@@ -216,6 +221,7 @@ function pc_render_plugin_card( $plugin ) {
 						if ( ! empty( $plugin_icons['svg'] ) ) {
 							
 							// We have an SVG
+							// TODO: Figure out how to escape the SVG
 							$img_src = $plugin_icons['svg'];
 							echo '<img src="' . $img_src . '" />';
 						
@@ -223,13 +229,13 @@ function pc_render_plugin_card( $plugin ) {
 							
 							// We have a Retina icon
 							$img_src = $plugin_icons['2x'];
-							echo '<img src="' . $img_src . '" />';
+							echo '<img src="' . esc_url( $img_src ) . '" />';
 						
 						} elseif ( ! empty( $plugin_icons['1x'] ) ) {
 							
 							// We have a standard icon
 							$img_src = $plugin_icons['1x'];
-							echo '<img src="' . $img_src . '" />';
+							echo '<img src="' . esc_url( $img_src ) . '" />';
 						
 						} elseif ( ! empty( $plugin_icons['default'] ) ) {
 
@@ -258,7 +264,7 @@ function pc_render_plugin_card( $plugin ) {
 						<?php echo wp_kses_post( apply_filters( 'plugin_cards_short_description', $plugin->short_description, $plugin ) ); ?>
 					</p>
 					<p class="authors">
-						<cite>By <?php echo wp_kses_post( apply_filters( 'plugin_cards_plugin_author', $plugin->author, $plugin ) ); ?></cite>
+						<cite><?php _e( 'By', 'plugin-cards' );?> <?php echo wp_kses_post( apply_filters( 'plugin_cards_plugin_author', $plugin->author, $plugin ) ); ?></cite>
 					</p>
 				</div>
 			</div>
@@ -266,7 +272,7 @@ function pc_render_plugin_card( $plugin ) {
 				<div class="column-rating">
 					<div class="star-rating">
 						<?php
-						$rating = $plugin->rating;
+						$rating = (int)$plugin->rating;
 
 						// Star 1
 						if ( $rating >= 20 ) {
@@ -334,7 +340,7 @@ function pc_render_plugin_card( $plugin ) {
 				<div class="column-compatibility">
 					<?php
 					if ( ! empty( $plugin->tested ) ) {
-						echo '<span class="compatibility-compatible"><strong>' . __( 'Compatible up to', 'plugin-cards' ) . ':</strong> ' . $plugin->tested . '</span>';
+						echo '<span class="compatibility-compatible"><strong>' . __( 'Compatible up to', 'plugin-cards' ) . ':</strong> ' . esc_attr( $plugin->tested ) . '</span>';
 					}
 					?>
 				</div>
