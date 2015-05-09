@@ -207,6 +207,12 @@
 	.plugin-cards .plugin-card .plugin-description {
 		margin-left: 104px;
 	}
+
+	.plugin-cards .plugin-card .column-updated,
+	.plugin-cards .plugin-card .column-compatibility {
+		float: none;
+		width: 100%;
+	}
 }
 
 @media screen and ( max-width: 782px ) {
