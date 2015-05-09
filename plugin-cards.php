@@ -146,9 +146,11 @@ function pc_plugin_cards_shortcode( $atts ) {
 	// Confirm the call to plugins_api worked.
 	if ( is_object( $plugin_info ) ) {
 
+		/* Debug Info
 		print '<pre>';
 		print_r( $plugin_info );
 		print '</pre>';
+		*/
 
 		$output .= '<div class="plugin-cards">';
 
