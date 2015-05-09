@@ -91,6 +91,8 @@ function pc_plugin_cards_shortcode( $atts ) {
 		'homepage' => true,
 	);
 
+	// Do query using passed in param.
+	// TODO: Use caching or maybe even cron to avoid hidding the API live.
 	if ( $slug ) {
 
 		$plugin_info = plugins_api(
@@ -220,26 +222,26 @@ function pc_render_plugin_card( $plugin ) {
 						$plugin_icons = $plugin->icons;
 						if ( ! empty( $plugin_icons['svg'] ) ) {
 							
-							// We have an SVG
-							// TODO: Figure out how to escape the SVG
+							// We have an SVG.
+							// TODO: Figure out how to escape the SVG.
 							$img_src = $plugin_icons['svg'];
 							echo '<img src="' . $img_src . '" />';
 						
 						} elseif ( ! empty( $plugin_icons['2x'] ) ) {
 							
-							// We have a Retina icon
+							// We have a Retina icon.
 							$img_src = $plugin_icons['2x'];
 							echo '<img src="' . esc_url( $img_src ) . '" />';
 						
 						} elseif ( ! empty( $plugin_icons['1x'] ) ) {
 							
-							// We have a standard icon
+							// We have a standard icon.
 							$img_src = $plugin_icons['1x'];
 							echo '<img src="' . esc_url( $img_src ) . '" />';
 						
 						} elseif ( ! empty( $plugin_icons['default'] ) ) {
 
-							// We have a default
+							// We have a default.
 							$img_src = $plugin_icons['default'];
 							echo '<img src="' . $img_src . '" />';
 						}
