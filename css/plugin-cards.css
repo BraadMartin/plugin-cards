@@ -33,6 +33,7 @@
 }
 
 @media screen and ( min-width: 1600px ) {
+	/* This seems a little overkill for this plugin.
 	.plugin-cards .plugin-card {
 		width: 30%;
 		width: -webkit-calc( 33.1% - 8px );
@@ -55,7 +56,7 @@
 
 	.plugin-cards .plugin-card:nth-child(3n) {
 		margin-right: 0;
-	}
+	}*/
 }
 
 @media screen and ( max-width: 782px ) {
