@@ -62,20 +62,22 @@ add_shortcode( 'plugin_cards', 'pc_plugin_cards_shortcode' );
 function pc_plugin_cards_shortcode( $atts ) {
 
 	$atts = shortcode_atts( array(
-			'slug'		=> '',
-			'author'	=> '',
-			'tag'		=> '',
-			'browse'	=> '',
-			'search'	=> '',
+			'slug'		=> false,
+			'author'	=> false,
+			'tag'		=> false,
+			'browse'	=> false,
+			'user'		=> false,
+			'search'	=> false,
 		), $atts );
 
 	$slug = $atts['slug'];
 	$author = $atts['author'];
 	$tag = $atts['tag'];
 	$browse = $atts['browse'];
+	$user = $atts['user'];
 	$search = $atts['search'];
 
-	// Set up query fields.
+	// Set up our query fields.
 	$fields = array(
 		'banners' => true,
 		'icons' => true,
@@ -91,9 +93,19 @@ function pc_plugin_cards_shortcode( $atts ) {
 		'homepage' => true,
 	);
 
-	// Do query using passed in param.
-	// TODO: Use caching or maybe even cron to avoid hidding the API live.
-	if ( $slug ) {
+	// Allow the use of custom query args.
+	$custom_query_args = apply_filters( 'plugin_cards_api_query_args', false, $atts, $fields );
+
+	// Do query using passed in param. Prioritize by custom args, then slug, then author, then user, then tag, then browse term, then search term.
+	// TODO: Use caching or maybe cron to avoid hitting the API live.
+	if ( $custom_query_args ) {
+
+		$plugin_info = plugins_api(
+			'query_plugins',
+			$custom_query_args
+		);
+
+	} elseif ( $slug ) {
 
 		$plugin_info = plugins_api(
 			'plugin_information',
@@ -119,6 +131,16 @@ function pc_plugin_cards_shortcode( $atts ) {
 			'query_plugins',
 			array(
 				'tag' => $tag,
+				'fields' => $fields,
+			)
+		);
+
+	} elseif ( $user ) {
+
+		$plugin_info = plugins_api(
+			'query_plugins',
+			array(
+				'user'	 => $user,
 				'fields' => $fields,
 			)
 		);
@@ -149,27 +171,26 @@ function pc_plugin_cards_shortcode( $atts ) {
 	$output = '';
 
 	// Confirm the call to plugins_api worked.
-	if ( is_object( $plugin_info ) ) {
+	if ( is_object( $plugin_info ) && ! is_wp_error( $plugin_info ) ) {
 
-		/* Debug Info
-		print '<pre>';
-		print_r( $plugin_info );
-		print '</pre>';
-		*/
+		/* Debug Info */
+		//print '<pre>';
+		//print_r( $plugin_info );
+		//print '</pre>';
 
-		// Prioritize querying, first by slug, then author, then tag, then browse, then search.
-		if ( $slug ) {
+		// Check whether we have a single result or multiple results.
+		if ( ! isset( $plugin_info->plugins ) ) {
 
+			// We have a single result.
 			$output .= '<div class="plugin-cards single-plugin">';
 
-			// We are querying by slug, so we only have one plugin to display.
 			$output .= pc_render_plugin_card( $plugin_info );
 
 		} else {
 
+			// We have multiple results.
 			$output .= '<div class="plugin-cards multiple-plugins">';
 
-			// We are querying by author, tag, browse, or search, so likely have multiple plugins and need to loop.
 			foreach( $plugin_info->plugins as $plugin ) {
 
 				$output .= pc_render_plugin_card( $plugin );
@@ -394,7 +415,7 @@ function pc_render_plugin_card( $plugin ) {
 
 	}
 
-	// Looks like $plugin wasn't an object...
+	// Looks like $plugin wasn't an object or we got an error back from the API...
 	return false;
 
 }

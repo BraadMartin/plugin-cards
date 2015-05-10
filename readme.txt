@@ -12,55 +12,86 @@ Display plugin cards that match those introduced in WordPress 4.0. Uses the word
 
 == Description ==
 
-Plugin Cards lets you display WordPress 4.0 style cards with plugin information for any plugin that lives on the wordpress.org repository. You can select any specific plugin by slug, or you can query the repository by author, tag, popularity, or search term.
+Plugin Cards lets you display WordPress 4.0 style cards with plugin information for any plugin that lives on the wordpress.org repository. All of the custom queries that are possible using the wordpress.org API are possible with this plugin, including queries for plugins by:
 
-This plugin uses the same wordpress.org API that your wp-admin uses when you're searching for new plugins, and it reuses as much of the admin CSS and core functionality as possible.
+* Slug
+* Author
+* Tag
+* Search term
+* Brose terms: popular, new, & beta
+* A wordpress.org user's favorites list
+* Any other custom query you can think of using a provided filter
+
+This plugin uses the same wordpress.org API that your wp-admin uses when you're searching for new plugins, and it reuses as much of the admin CSS and core functionality as possible to bring you a purposefully stock experience.
+
+I have also included a generous number of filters in the plugin that allow you to use a custom query, include custom fields not shown by default, use custom icons, use custom plugin urls, add to or override the information shown in each section of the output, override the entire output with your own, and more.
+
+Please do join in the fun [on Github](https://github.com/BraadMartin/plugin-cards "Plugin Cards on Github") if you have any feature requests or pull requests.
 
 = Features =
 
-* Query the wordpress.org plugin repo by all methods supported by the wordpress.org API, including by slug, author, tag, popularity, and search term
+* Query the wordpress.org plugin repo by all methods supported by the wordpress.org API, including by slug, author, tag, popular, new, beta, user's favorites, and search term
 * Cards match the design introduced in WordPress 4.0+
 * Uses the wordpress.org API to get plugin information
 * Displayed fields include plugin name, icon, description, author link, star rating, active install count, last updated and compatible up to
 * Uses SVG plugin icon if available, then retina icon if available, then regular icon
 * Fully Responsive
 * Easily customize the look of the cards with CSS
+* Easily customize the functionality of the entire plugin with provided filters
 
-With Plugin Cards you can easily display a custom list of plugins for any purpose!
+With Plugin Cards you can easily display a custom list of plugins for any purpose.
 
 = Usage =
 
 This plugin adds a shortcode [plugin_cards] that you can use to display the plugin cards anywhere on your site.
 
-The following parameters can be used to create a custom query:
+The following parameters can be used to create your query:
 
-`
-[plugin_cards slug="easy-digital-downloads"]
-`
+	[plugin_cards slug="easy-digital-downloads"]
+	[plugin_cards author="markjaquith"]
+	[plugin_cards user="matt"] // Displays user's favorites list
+	[plugin_cards tag="slider"]
+	[plugin_cards browse="popular"]
+	[plugin_cards browse="new"]
+	[plugin_cards browse="beta"]
+	[plugin_cards search="gallery"]
 
-`
-[plugin_cards author="markjaquith"]
-`
-
-`
-[plugin_cards tag="slider"]
-`
-
-`
-[plugin_cards browse="popular"]
-`
-
-`
-[plugin_cards search="gallery"]
-`
-
-**Note:** Using the shortcode with a slug will return a single result and will take precendence over all other query parameters. 
-
-**Note:** At this time the wordpress.org API only supports querying by one parameter at a time, so currently only one parameter can be included in the shortcode to build the query.
+**Note:** At this time the wordpress.org API only supports querying by one parameter at a time, so currently only one parameter can be included in the shortcode to build the query. If this ever changes I will add support for querying by multiple parameters to this plugin.
 
 = Advanced Usage =
 
 This plugin includes a number of filters that you can use to customize the display of the cards and add plugin information to the cards. I recommend reading through the code if you really want to understand how the filters can be used. Here are some examples:
+
+**Use a custom query**
+
+	function custom_plugin_cards_query( $custom_query_args, $atts = array(), $fields = array() ) {
+
+		// Show the 10 most popular plugins with only certain fields returned
+		$custom_query_args = array(
+			'per_page' => 10,
+			'browse' => 'popular',
+			'fields' => array(
+				'banners' => true,
+				'icons' => false,
+				'reviews' => true,
+				'rating' => true,
+				'num_ratings' => true,
+				'downloaded' => false,
+				'active_installs' => false,
+				'short_description' => false,
+				'sections' => true,
+				'downloadlink' => true,
+				'last_updated' => true,
+				'homepage' => true,
+			)
+		);
+
+		return $custom_query_args;
+
+	}
+	add_filter( 'plugin_cards_api_query_args', 'custom_plugin_cards_query', 10, 3 );
+
+Then you'd have to use one of the output filters and some CSS to get the new fields to show on the page. There is a lot that is possible with the `plugin_cards_api_query_args` filter, too much to cover here, but the key is setting the right main query param and setting the fields that you want returned.
 
 **Use custom URLs**
 
