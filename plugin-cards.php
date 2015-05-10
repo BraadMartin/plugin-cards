@@ -415,7 +415,7 @@ function pc_render_plugin_card( $plugin ) {
 
 	}
 
-	// Looks like $plugin wasn't an object or we got an error back from the API...
+	// Looks like $plugin wasn't an object...
 	return false;
 
 }
