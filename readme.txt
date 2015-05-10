@@ -43,7 +43,7 @@ With Plugin Cards you can easily display a custom list of plugins for any purpos
 
 = Usage =
 
-This plugin adds a shortcode [plugin_cards] that you can use to display the plugin cards anywhere on your site.
+This plugin adds a shortcode `[plugin_cards]` that you can use to display the plugin cards anywhere on your site.
 
 The following parameters can be used to create your query:
 
@@ -148,7 +148,7 @@ These filters can be used like this:
 	}
 	add_filter( 'plugin_cards_plugin_icon', 'custom_plugin_card_icons', 10, 3 );
 
-If anyone wants a hook added just let me know. Pull request are also welcome [on Github](https://github.com/BraadMartin/plugin-cards "Plugin Cards on Github").
+If you want a hook added just let me know. Pull request are also welcome [on Github](https://github.com/BraadMartin/plugin-cards "Plugin Cards on Github").
 
 == Installation ==
 
