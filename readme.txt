@@ -58,6 +58,10 @@ The following parameters can be used to create your query:
 
 **Note:** At this time the wordpress.org API only supports querying by one parameter at a time, so currently only one parameter can be included in the shortcode to build the query. If this ever changes I will add support for querying by multiple parameters to this plugin.
 
+You can also set the max number of results using the max_results parameter like this:
+
+	[plugin_cards max_results="10" browse="popular"]
+
 = Advanced Usage =
 
 This plugin includes a number of filters that you can use to customize the display of the cards and add plugin information to the cards. I recommend reading through the code if you really want to understand how the filters can be used. Here are some examples:

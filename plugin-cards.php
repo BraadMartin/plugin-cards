@@ -62,20 +62,22 @@ add_shortcode( 'plugin_cards', 'pc_plugin_cards_shortcode' );
 function pc_plugin_cards_shortcode( $atts ) {
 
 	$atts = shortcode_atts( array(
-			'slug'		=> false,
-			'author'	=> false,
-			'tag'		=> false,
-			'browse'	=> false,
-			'user'		=> false,
-			'search'	=> false,
+			'max_results' 	=> 50,
+			'slug'			=> false,
+			'author'		=> false,
+			'tag'			=> false,
+			'browse'		=> false,
+			'user'			=> false,
+			'search'		=> false,
 		), $atts );
 
-	$slug = $atts['slug'];
-	$author = $atts['author'];
-	$tag = $atts['tag'];
-	$browse = $atts['browse'];
-	$user = $atts['user'];
-	$search = $atts['search'];
+	$per_page = (int)$atts['max_results'];
+	$slug = esc_attr( $atts['slug'] );
+	$author = esc_attr( $atts['author'] );
+	$tag = esc_attr( $atts['tag'] );
+	$browse = esc_attr( $atts['browse'] );
+	$user = esc_attr( $atts['user'] );
+	$search = esc_attr( $atts['search'] );
 
 	// Set up our query fields.
 	$fields = array(
@@ -120,6 +122,7 @@ function pc_plugin_cards_shortcode( $atts ) {
 		$plugin_info = plugins_api(
 			'query_plugins',
 			array(
+				'per_page' => $per_page,
 				'author' => $author,
 				'fields' => $fields,
 			)
@@ -130,6 +133,7 @@ function pc_plugin_cards_shortcode( $atts ) {
 		$plugin_info = plugins_api(
 			'query_plugins',
 			array(
+				'per_page' => $per_page,
 				'tag' => $tag,
 				'fields' => $fields,
 			)
@@ -140,6 +144,7 @@ function pc_plugin_cards_shortcode( $atts ) {
 		$plugin_info = plugins_api(
 			'query_plugins',
 			array(
+				'per_page' => $per_page,
 				'user'	 => $user,
 				'fields' => $fields,
 			)
@@ -150,6 +155,7 @@ function pc_plugin_cards_shortcode( $atts ) {
 		$plugin_info = plugins_api(
 			'query_plugins',
 			array(
+				'per_page' => $per_page,
 				'browse' => $browse,
 				'fields' => $fields,
 			)
@@ -160,6 +166,7 @@ function pc_plugin_cards_shortcode( $atts ) {
 		$plugin_info = plugins_api(
 			'query_plugins',
 			array(
+				'per_page' => $per_page,
 				'search' => $search,
 				'fields' => $fields,
 			)
