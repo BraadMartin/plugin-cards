@@ -62,7 +62,7 @@ add_shortcode( 'plugin_cards', 'pc_plugin_cards_shortcode' );
 function pc_plugin_cards_shortcode( $atts ) {
 
 	$atts = shortcode_atts( array(
-			'max_results' 	=> 50,
+			'max_results'	=> 50,
 			'slug'			=> false,
 			'author'		=> false,
 			'tag'			=> false,
@@ -98,7 +98,7 @@ function pc_plugin_cards_shortcode( $atts ) {
 	// Allow the use of custom query args.
 	$custom_query_args = apply_filters( 'plugin_cards_api_query_args', false, $atts, $fields );
 
-	// Do query using passed in param. Prioritize by custom args, then slug, then author, then user, then tag, then browse term, then search term.
+	// Do query using passed in params. Prioritize by custom args, then slug, then author, then user, then tag, then browse term, then search term.
 	// TODO: Use caching or maybe cron to avoid hitting the API live.
 	if ( $custom_query_args ) {
 
@@ -186,14 +186,7 @@ function pc_plugin_cards_shortcode( $atts ) {
 		//print '</pre>';
 
 		// Check whether we have a single result or multiple results.
-		if ( ! isset( $plugin_info->plugins ) ) {
-
-			// We have a single result.
-			$output .= '<div class="plugin-cards single-plugin">';
-
-			$output .= pc_render_plugin_card( $plugin_info );
-
-		} else {
+		if ( isset( $plugin_info->plugins ) ) {
 
 			// We have multiple results.
 			$output .= '<div class="plugin-cards multiple-plugins">';
@@ -202,6 +195,13 @@ function pc_plugin_cards_shortcode( $atts ) {
 
 				$output .= pc_render_plugin_card( $plugin );
 			}
+			
+		} else {
+
+			// We have a single result.
+			$output .= '<div class="plugin-cards single-plugin">';
+
+			$output .= pc_render_plugin_card( $plugin_info );
 
 		} 
 
@@ -361,7 +361,7 @@ function pc_render_plugin_card( $plugin ) {
 							}
 							?>
 						</div>
-						<span class="num-ratings">(<?php echo number_format_i18n( $plugin->num_ratings ); ?>)</span>
+						<span class="num-ratings">(<?php echo '<a href="https://wordpress.org/support/view/plugin-reviews/' . esc_attr( $plugin->slug ) . '" target="_blank">' . number_format_i18n( $plugin->num_ratings ) . '</a>'; ?>)</span>
 						<?php
 					} ?>
 				</div>
