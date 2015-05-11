@@ -33,6 +33,7 @@ Please do join in the fun [on Github](https://github.com/BraadMartin/plugin-card
 * Query the wordpress.org plugin repo by all methods supported by the wordpress.org API, including by slug, author, tag, popular, new, beta, user's favorites, and search term
 * Cards match the design introduced in WordPress 4.0+
 * Uses the wordpress.org API to get plugin information
+* Caches results to minimize hits on the API
 * Displayed fields include plugin name, icon, description, author link, star rating, active install count, last updated and compatible up to
 * Uses SVG plugin icon if available, then retina icon if available, then regular icon
 * Fully Responsive

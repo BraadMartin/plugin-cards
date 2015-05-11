@@ -95,11 +95,15 @@ function pc_plugin_cards_shortcode( $atts ) {
 		'homepage' => true,
 	);
 
+	// Set how long to cache results.
+	$expiration = 15 * MINUTE_IN_SECONDS;
+
 	// Allow the use of custom query args.
 	$custom_query_args = apply_filters( 'plugin_cards_api_query_args', false, $atts, $fields );
 
-	// Do query using passed in params. Prioritize by custom args, then slug, then author, then user, then tag, then browse term, then search term.
-	// TODO: Use caching or maybe cron to avoid hitting the API live.
+	/**
+	 * Do query using passed in params.
+	 */
 	if ( $custom_query_args ) {
 
 		$plugin_info = plugins_api(
@@ -109,69 +113,112 @@ function pc_plugin_cards_shortcode( $atts ) {
 
 	} elseif ( $slug ) {
 
-		$plugin_info = plugins_api(
-			'plugin_information',
-			array(
-				'slug' => $slug,
-				'fields' => $fields,
-			)
-		);
+		// Look in the cache.
+		$plugin_info = get_transient( 'plugin_cards_{$slug}' );
+
+		// If it's not in the cache or it's expired, do it live and store it in the cache.
+		if ( ! $plugin_info ) {
+			$plugin_info = plugins_api(
+				'plugin_information',
+				array(
+					'slug' => $slug,
+					'fields' => $fields,
+				)
+			);
+			if ( is_object( $plugin_info ) && ! is_wp_error( $plugin_info ) ) {
+				set_transient( 'plugin_cards_{$slug}', $plugin_info, $expiration );
+			}
+		}
 
 	} elseif ( $author ) {
 
-		$plugin_info = plugins_api(
-			'query_plugins',
-			array(
-				'per_page' => $per_page,
-				'author' => $author,
-				'fields' => $fields,
-			)
-		);
+		$plugin_info = get_transient( 'plugin_cards_{$author}' );
+
+		if ( ! $plugin_info ) {
+			$plugin_info = plugins_api(
+				'query_plugins',
+				array(
+					'per_page' => $per_page,
+					'author' => $author,
+					'fields' => $fields,
+				)
+			);
+			if ( is_object( $plugin_info ) && ! is_wp_error( $plugin_info ) ) {
+				set_transient( 'plugin_cards_{$author}', $plugin_info, $expiration );
+			}
+		}
 
 	} elseif ( $tag ) {
 
-		$plugin_info = plugins_api(
-			'query_plugins',
-			array(
-				'per_page' => $per_page,
-				'tag' => $tag,
-				'fields' => $fields,
-			)
-		);
+		$plugin_info = get_transient( 'plugin_cards_{$tag}' );
+
+		if ( ! $plugin_info ) {
+			$plugin_info = plugins_api(
+				'query_plugins',
+				array(
+					'per_page' => $per_page,
+					'tag' => $tag,
+					'fields' => $fields,
+				)
+			);
+			if ( is_object( $plugin_info ) && ! is_wp_error( $plugin_info ) ) {
+				set_transient( 'plugin_cards_{$tag}', $plugin_info, $expiration );
+			}
+		}
 
 	} elseif ( $user ) {
 
-		$plugin_info = plugins_api(
-			'query_plugins',
-			array(
-				'per_page' => $per_page,
-				'user'	 => $user,
-				'fields' => $fields,
-			)
-		);
+		$plugin_info = get_transient( 'plugin_cards_{$user}' );
+
+		if ( ! $plugin_info ) {
+			$plugin_info = plugins_api(
+				'query_plugins',
+				array(
+					'per_page' => $per_page,
+					'user'	 => $user,
+					'fields' => $fields,
+				)
+			);
+			if ( is_object( $plugin_info ) && ! is_wp_error( $plugin_info ) ) {
+				set_transient( 'plugin_cards_{$user}', $plugin_info, $expiration );
+			}
+		}
 
 	} elseif ( $browse ) {
 
-		$plugin_info = plugins_api(
-			'query_plugins',
-			array(
-				'per_page' => $per_page,
-				'browse' => $browse,
-				'fields' => $fields,
-			)
-		);
+		$plugin_info = get_transient( 'plugin_cards_{$browse}' );
+
+		if ( ! $plugin_info ) {
+			$plugin_info = plugins_api(
+				'query_plugins',
+				array(
+					'per_page' => $per_page,
+					'browse' => $browse,
+					'fields' => $fields,
+				)
+			);
+			if ( is_object( $plugin_info ) && ! is_wp_error( $plugin_info ) ) {
+				set_transient( 'plugin_cards_{$browse}', $plugin_info, $expiration );
+			}
+		}
 
 	} elseif ( $search ) {
 
-		$plugin_info = plugins_api(
-			'query_plugins',
-			array(
-				'per_page' => $per_page,
-				'search' => $search,
-				'fields' => $fields,
-			)
-		);
+		$plugin_info = get_transient( 'plugin_cards_{$search}' );
 
+		if ( ! $plugin_info ) {
+			$plugin_info = plugins_api(
+				'query_plugins',
+				array(
+					'per_page' => $per_page,
+					'search' => $search,
+					'fields' => $fields,
+				)
+			);
+			if ( is_object( $plugin_info ) && ! is_wp_error( $plugin_info ) ) {
+				set_transient( 'plugin_cards_{$search}', $plugin_info, $expiration );
+			}
+		}
 	}
 
 	// Default $output.
@@ -195,7 +242,7 @@ function pc_plugin_cards_shortcode( $atts ) {
 
 				$output .= pc_render_plugin_card( $plugin );
 			}
-			
+
 		} else {
 
 			// We have a single result.
@@ -203,7 +250,7 @@ function pc_plugin_cards_shortcode( $atts ) {
 
 			$output .= pc_render_plugin_card( $plugin_info );
 
-		} 
+		}
 
 		$output .= '</div>';
 
@@ -238,11 +285,11 @@ function pc_render_plugin_card( $plugin ) {
 		?>
 		<div class="plugin-card plugin-card-<?php echo esc_attr( $plugin->slug ) ?>">
 			<div class="plugin-card-top">
-				<?php 
+				<?php
 
 				// Allow this whole section to be overridden.
 				$plugin_icon = apply_filters( 'plugin_cards_plugin_icon', '', $plugin, $plugin_url );
-	
+
 				// Use the override if it's there, otherwise output the standard icon.
 				if ( $plugin_icon ) {
 					echo wp_kses_post( $plugin_icon );
@@ -252,24 +299,24 @@ function pc_render_plugin_card( $plugin ) {
 						<?php
 						$plugin_icons = $plugin->icons;
 						if ( ! empty( $plugin_icons['svg'] ) ) {
-							
+
 							// We have an SVG.
 							// TODO: Figure out how to escape the SVG.
 							$img_src = $plugin_icons['svg'];
 							echo '<img src="' . $img_src . '" />';
-						
+
 						} elseif ( ! empty( $plugin_icons['2x'] ) ) {
-							
+
 							// We have a Retina icon.
 							$img_src = $plugin_icons['2x'];
 							echo '<img src="' . esc_url( $img_src ) . '" />';
-						
+
 						} elseif ( ! empty( $plugin_icons['1x'] ) ) {
-							
+
 							// We have a standard icon.
 							$img_src = $plugin_icons['1x'];
 							echo '<img src="' . esc_url( $img_src ) . '" />';
-						
+
 						} elseif ( ! empty( $plugin_icons['default'] ) ) {
 
 							// We have a default.
@@ -366,7 +413,7 @@ function pc_render_plugin_card( $plugin ) {
 					} ?>
 				</div>
 				<div class="column-updated">
-					<?php 
+					<?php
 					// Allow this whole section to be overridden.
 					$last_updated = apply_filters( 'plugin_cards_last_updated', '', $plugin );
 
@@ -377,7 +424,7 @@ function pc_render_plugin_card( $plugin ) {
 						<strong><?php _e( 'Last Updated', 'plugin-cards' ); ?>:</strong> <span>
 							<?php printf( __( '%s ago', 'plugin-cards' ), human_time_diff( strtotime( $plugin->last_updated ) ) ); ?>
 						</span>
-						<?php	
+						<?php
 					} ?>
 				</div>
 				<div class="column-downloaded">
@@ -406,7 +453,7 @@ function pc_render_plugin_card( $plugin ) {
 					if ( $compatibility ) {
 						echo wp_kses_post( $compatibility );
 					} else {
-					
+
 						if ( ! empty( $plugin->tested ) ) {
 							echo '<span class="compatibility-compatible"><strong>' . __( 'Compatible up to', 'plugin-cards' ) . ':</strong> ' . esc_attr( $plugin->tested ) . '</span>';
 						}
