@@ -20,13 +20,13 @@ Plugin Cards lets you display WordPress 4.0 style cards with plugin information 
 * Search term
 * Brose terms: popular, new, & beta
 * A wordpress.org user's favorites list
-* Any other custom query you can think of using a provided filter
+* Any other custom query you pass in via an included filter
 
-This plugin uses the same wordpress.org API that your wp-admin uses when you're searching for new plugins, and it reuses as much of the admin CSS and core functionality as possible to bring you a purposefully stock experience.
+This plugin uses the same wordpress.org API that your wp-admin uses when you are searching for new plugins, and it uses as much of the admin CSS and core functionality as possible to bring you a purposefully stock experience.
 
-I have also included a generous number of filters in the plugin that allow you to use a custom query, include custom fields not shown by default, use custom icons, use custom plugin urls, add to or override the information shown in each section of the output, override the entire output with your own, and more.
+I have also included a number of filters in the plugin that allow you to use a custom query, include custom fields not shown by default, use custom icons, use custom plugin urls, add to or override the information shown in each section of the output, override the entire output with your own, and more.
 
-Please do join in the fun [on Github](https://github.com/BraadMartin/plugin-cards "Plugin Cards on Github") if you have any feature requests or pull requests.
+This plugin is [on Github](https://github.com/BraadMartin/plugin-cards "Plugin Cards on Github") and I encourage you to send feature requests and pull requests.
 
 = Features =
 
@@ -34,7 +34,7 @@ Please do join in the fun [on Github](https://github.com/BraadMartin/plugin-card
 * Cards match the design introduced in WordPress 4.0+
 * Uses the wordpress.org API to get plugin information
 * Caches results to minimize hits on the API
-* Displayed fields include plugin name, icon, description, author link, star rating, active install count, last updated and compatible up to
+* Default fields include plugin name, icon, description, author link, star rating, active install count, last updated and compatible up to
 * Uses SVG plugin icon if available, then retina icon if available, then regular icon
 * Fully Responsive
 * Easily customize the look of the cards with CSS
@@ -57,7 +57,7 @@ The following parameters can be used to create your query:
 	[plugin_cards browse="beta"]
 	[plugin_cards search="gallery"]
 
-**Note:** At this time the wordpress.org API only supports querying by one parameter at a time, so currently only one parameter can be included in the shortcode to build the query. If this ever changes I will add support for querying by multiple parameters to this plugin.
+**Note:** The wordpress.org API only supports querying by one parameter at a time, so currently only one parameter can be included in the shortcode to build the query. If this ever changes I will add support for querying by multiple parameters to this plugin.
 
 You can also set the max number of results using the max_results parameter like this:
 
@@ -151,7 +151,7 @@ These filters can be used like this:
 
 There is also one special filter `plugin_cards_cache_expiration` that allows you to set how long you want the results of the API request to be cached. The default is 15 minutes (expressed as number of seconds).
 
-If you want a hook added just let me know. Pull request are also welcome [on Github](https://github.com/BraadMartin/plugin-cards "Plugin Cards on Github").
+If you want a hook added just let me know. Pull requests are welcome [on Github](https://github.com/BraadMartin/plugin-cards "Plugin Cards on Github").
 
 == Installation ==
 
