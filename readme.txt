@@ -149,6 +149,8 @@ These filters can be used like this:
 	}
 	add_filter( 'plugin_cards_plugin_icon', 'custom_plugin_card_icons', 10, 3 );
 
+There is also one special filter `plugin_cards_cache_expiration` that allows you to set how long you want the results of the API request to be cached. The default is 15 minutes (expressed as number of seconds).
+
 If you want a hook added just let me know. Pull request are also welcome [on Github](https://github.com/BraadMartin/plugin-cards "Plugin Cards on Github").
 
 == Installation ==
@@ -172,6 +174,10 @@ When you navigate to the plugin install screen from the wp-admin dashboard on yo
 = Can I query by multiple parameters at once? =
 
 At this time the wordpress.org API can only be queried by one of the included query parameters at a time. If the API ever allows more complex queries, I'll be happy to add support for them to this plugin.
+
+= How does the plugin cache results? =
+
+This plugin uses transients to store the results from each unique API request. This minimizes hits on the API and dramatically speeds up the loading of the cards. The expiration on the transients are set to 15 minutes by default, but you can use the filter `plugin_cards_cache_expiration` to change that.
 
 == Screenshots ==
 

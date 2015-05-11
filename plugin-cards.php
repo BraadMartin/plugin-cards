@@ -98,6 +98,9 @@ function pc_plugin_cards_shortcode( $atts ) {
 	// Set how long to cache results.
 	$expiration = 15 * MINUTE_IN_SECONDS;
 
+	// Allow expiration to be filtered.
+	$expiration = apply_filters( 'plugin_cards_cache_expiration', $expiration, $atts );
+
 	// Allow the use of custom query args.
 	$custom_query_args = apply_filters( 'plugin_cards_api_query_args', false, $atts, $fields );
 
@@ -116,7 +119,8 @@ function pc_plugin_cards_shortcode( $atts ) {
 		// Look in the cache.
 		$plugin_info = get_transient( 'plugin_cards_{$slug}' );
 
-		// If it's not in the cache or it's expired, do it live and store it in the cache.
+		// If it's not in the cache or it's expired, do it live
+		// and store it in the cache for next time.
 		if ( ! $plugin_info ) {
 			$plugin_info = plugins_api(
 				'plugin_information',
