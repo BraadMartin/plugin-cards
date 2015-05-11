@@ -177,7 +177,7 @@ At this time the wordpress.org API can only be queried by one of the included qu
 
 = How does the plugin cache results? =
 
-This plugin uses transients to store the results from each unique API request. This minimizes hits on the API and dramatically speeds up the loading of the cards. The expiration on the transients are set to 15 minutes by default, but you can use the filter `plugin_cards_cache_expiration` to change that.
+This plugin uses transients to store the results from each unique API request. This minimizes hits on the API and dramatically speeds up the loading of the cards. The expiration on the transients is set to 15 minutes by default, but you can use the filter `plugin_cards_cache_expiration` to set your own cache expiration.
 
 == Screenshots ==
 
