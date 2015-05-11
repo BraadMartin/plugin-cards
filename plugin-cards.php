@@ -42,6 +42,21 @@ function pc_plugin_cards_load_translations() {
 	load_plugin_textdomain( 'plugin-cards', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 }
 
+add_action( 'init', 'pc_plugin_cards_load_bfa' );
+/**
+ * Use the Better Font Awesome Library (for the star ratings).
+ */
+require_once ( dirname( __FILE__ ) . '/lib/better-font-awesome-library/better-font-awesome-library.php' );
+function pc_plugin_cards_load_bfa() {
+
+	// Only if we're on the front end.
+	if ( ! is_admin() ) {
+
+	    // Initialize the Better Font Awesome Library.
+	    Better_Font_Awesome_Library::get_instance();
+	}
+}
+
 add_action( 'wp_enqueue_scripts', 'pc_plugin_cards_enqueue_scripts' );
 /**
  * Register our CSS.
@@ -57,7 +72,7 @@ function pc_plugin_cards_enqueue_scripts() {
 
 add_shortcode( 'plugin_cards', 'pc_plugin_cards_shortcode' );
 /**
- * Shortcode for rendering the plugin cards.
+ * Main [plugin_cards] shortcode function.
  */
 function pc_plugin_cards_shortcode( $atts ) {
 
@@ -476,19 +491,4 @@ function pc_render_plugin_card( $plugin ) {
 	// Looks like $plugin wasn't an object...
 	return false;
 
-}
-
-add_action( 'init', 'pc_plugin_cards_load_bfa' );
-/**
- * Use the Better Font Awesome Library (for the star ratings).
- */
-require_once ( dirname( __FILE__ ) . '/lib/better-font-awesome-library/better-font-awesome-library.php' );
-function pc_plugin_cards_load_bfa() {
-
-	// Only if we're on the front end.
-	if ( ! is_admin() ) {
-
-	    // Initialize the Better Font Awesome Library.
-	    Better_Font_Awesome_Library::get_instance();
-	}
 }
