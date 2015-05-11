@@ -24,7 +24,7 @@ Plugin Cards lets you display WordPress 4.0 style cards with plugin information 
 
 This plugin uses the same wordpress.org API that your wp-admin uses when you are searching for new plugins, and it uses as much of the admin CSS and core functionality as possible to bring you a purposefully stock experience.
 
-I have also included a number of filters in the plugin that allow you to use a custom query, include custom fields not shown by default, use custom icons, use custom plugin urls, add to or override the information shown in each section of the output, override the entire output with your own, and more.
+I have also included a number of filters in the plugin that allow you to customize everything. You can use a custom query, include custom fields not shown by default, use custom icons, use custom plugin urls, add to or override the information shown in each section of the output, override the entire output with your own, and more.
 
 This plugin is [on Github](https://github.com/BraadMartin/plugin-cards "Plugin Cards on Github") and I encourage feature requests and pull requests.
 
