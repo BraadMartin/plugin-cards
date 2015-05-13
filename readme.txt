@@ -4,7 +4,7 @@ Donate link: http://braadmartin.com/
 Tags: plugin, cards, repo, search, query, wordpress.org, author, tag
 Requires at least: 4.0
 Tested up to: 4.3
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -187,10 +187,17 @@ This plugin uses transients to store the results from each unique API request. T
 
 == Changelog ==
 
+= 1.0.1 =
+* Introduced some JS to ensure we are always showing the right number of columns
+* Switched to using Dashicons for the star ratings
+
 = 1.0.0 =
 * First Release
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+* No breaking changes :)
 
 = 1.0.0 =
 * First Release

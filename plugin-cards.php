@@ -10,7 +10,7 @@
  * Plugin Name: 		Plugin Cards
  * Plugin URI: 			https://wordpress.org/plugins/plugin-cards/
  * Description: 		Display plugin cards that match those introduced in WordPress 4.0. Uses the wordpress.org API and supports custom queries.
- * Version: 			1.0.0
+ * Version: 			1.0.1
  * Author:				Braad Martin
  * Author URI: 			http://braadmartin.com
  * License: 			GPL-2.0+
