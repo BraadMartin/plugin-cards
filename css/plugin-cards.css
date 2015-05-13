@@ -142,12 +142,36 @@
 
 .plugin-cards .plugin-card-bottom .star-rating {
 	display: inline;
-	color: #ffb900;
-	font-size: 19px;
 }
 
-.plugin-cards .plugin-card-bottom .star-rating .star {
-	padding-right: 1px;
+.plugin-cards .star-rating .star {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	-webkit-font-smoothing: antialiased;
+	font-size: 20px;
+	line-height: 1;
+	font-family: dashicons;
+	text-decoration: inherit;
+	font-weight: 400;
+	font-style: normal;
+	vertical-align: top;
+	-webkit-transition: color .1s ease-in 0;
+	transition: color .1s ease-in 0;
+	text-align: center;
+	color: #ffb900;
+}
+
+.plugin-cards .star-rating .star-full:before {
+	content: '\f155';
+}
+
+.plugin-cards .star-rating .star-half:before {
+	content: '\f459';
+}
+
+.plugin-cards .star-rating .star-empty:before {
+	content: '\f154';
 }
 
 .plugin-cards .plugin-card .column-rating {
