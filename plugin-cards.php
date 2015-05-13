@@ -10,7 +10,7 @@
  * Plugin Name: 		Plugin Cards
  * Plugin URI: 			https://wordpress.org/plugins/plugin-cards/
  * Description: 		Display plugin cards that match those introduced in WordPress 4.0. Uses the wordpress.org API and supports custom queries.
- * Version: 			1.0.1
+ * Version: 			1.1.0
  * Author:				Braad Martin
  * Author URI: 			http://braadmartin.com
  * License: 			GPL-2.0+
@@ -51,8 +51,8 @@ function pc_plugin_cards_enqueue_scripts() {
 	// Only on the front end.
 	if ( ! is_admin() ) {
 		wp_register_style( 'open-sans-google-font', '//fonts.googleapis.com/css?family=Open+Sans:400,600' );
-		wp_register_style( 'plugin-cards-css', plugins_url( '/css/plugin-cards.css', __FILE__ ), array( 'dashicons' ), '1.0.1' );
-		wp_register_script( 'plugin-cards-js', plugins_url( '/js/plugin-cards.js', __FILE__ ), array( 'jquery' ), '1.0.1' );
+		wp_register_style( 'plugin-cards-css', plugins_url( '/css/plugin-cards.css', __FILE__ ), array( 'dashicons' ), '1.1.0' );
+		wp_register_script( 'plugin-cards-js', plugins_url( '/js/plugin-cards.js', __FILE__ ), array( 'jquery' ), '1.1.0' );
 	}
 }
 
