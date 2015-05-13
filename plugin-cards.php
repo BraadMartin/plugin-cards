@@ -51,7 +51,8 @@ function pc_plugin_cards_enqueue_scripts() {
 	// Only on the front end.
 	if ( ! is_admin() ) {
 		wp_register_style( 'open-sans-google-font', '//fonts.googleapis.com/css?family=Open+Sans:400,600' );
-		wp_register_style( 'plugin-cards', plugins_url( '/css/plugin-cards.css', __FILE__ ), array( 'dashicons' ), '1.0.0' );
+		wp_register_style( 'plugin-cards-css', plugins_url( '/css/plugin-cards.css', __FILE__ ), array( 'dashicons' ), '1.0.1' );
+		wp_register_script( 'plugin-cards-js', plugins_url( '/js/plugin-cards.js', __FILE__ ), array( 'jquery' ), '1.0.1' );
 	}
 }
 
@@ -273,7 +274,8 @@ function pc_render_plugin_card( $plugin ) {
 
 		// Enqueue our CSS.
 		wp_enqueue_style( 'open-sans-google-font' );
-		wp_enqueue_style( 'plugin-cards' );
+		wp_enqueue_style( 'plugin-cards-css' );
+		wp_enqueue_script( 'plugin-cards-js' ); 
 
 		// Sometimes the Plugin URI hasn't been set, so let's fallback to building it manually.
 		$plugin_url = esc_url( $plugin->homepage );

@@ -36,7 +36,8 @@ This plugin is [on Github](https://github.com/BraadMartin/plugin-cards "Plugin C
 * Caches results to minimize hits on the API
 * Default fields include plugin name, icon, description, author link, star rating, active install count, last updated and compatible up to
 * Uses SVG plugin icon if available, then retina icon if available, then regular icon
-* Fully Responsive
+* Uses the WP native Dashicons for the star ratings
+* Intelligently Responsive
 * Easily customize the look of the cards with CSS
 * Easily customize the functionality of the entire plugin with provided filters
 
