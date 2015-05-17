@@ -187,7 +187,7 @@ This plugin uses transients to store the results from each unique API request. T
 
 == Changelog ==
 
-= 1.0.1 =
+= 1.1.0 =
 * Introduced some JS to ensure we are always showing the right number of columns
 * Switched to using Dashicons for the star ratings
 
@@ -196,7 +196,7 @@ This plugin uses transients to store the results from each unique API request. T
 
 == Upgrade Notice ==
 
-= 1.0.1 =
+= 1.1.0 =
 * No breaking changes :)
 
 = 1.0.0 =
