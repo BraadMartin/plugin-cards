@@ -156,27 +156,27 @@ If you want a hook added just let me know. Pull requests are welcome [on Github]
 
 ## Installation ##
 
-### Manual Installation ###
+#### Manual Installation ####
 
 1. Upload the entire `/plugin-cards` directory to the `/wp-content/plugins/` directory.
 1. Activate Plugin Cards through the 'Plugins' menu in WordPress.
 
-### Better Installation ###
+#### Better Installation ####
 
 1. Go to Plugins > Add New in your WordPress admin and search for Plugin Cards.
 1. Click Install.
 
 ## Frequently Asked Questions ##
 
-### How does it work? ###
+#### How does it work? ####
 
 When you navigate to the plugin install screen from the wp-admin dashboard on your site, a request goes out to the wordpress.org API to grab the information about plugins in the official repository. This plugin includes the core functionality used to fetch the plugin information from the API on the front end of your site and adds a shortcode for easy query building and portability.
 
-### Can I query by multiple parameters at once? ###
+#### Can I query by multiple parameters at once? ####
 
 At this time the wordpress.org API can only be queried by one of the included query parameters at a time. If the API ever allows more complex queries, I'll be happy to add support for them to this plugin.
 
-### How does the plugin cache results? ###
+#### How does the plugin cache results? ####
 
 This plugin uses transients to store the results from each unique API request. This minimizes hits on the API and dramatically speeds up the loading of the cards. The expiration on the transients is set to 15 minutes by default, but you can use the filter `plugin_cards_cache_expiration` to set your own cache expiration.
 
@@ -187,17 +187,17 @@ This plugin uses transients to store the results from each unique API request. T
 
 ## Changelog ##
 
-### 1.1.0 ###
+#### 1.1.0 ####
 * Introduced some JS to ensure we are always showing the right number of columns
 * Switched to using Dashicons for the star ratings
 
-### 1.0.0 ###
+#### 1.0.0 ####
 * First Release
 
 ## Upgrade Notice ##
 
-### 1.1.0 ###
+#### 1.1.0 ####
 * No breaking changes :)
 
-### 1.0.0 ###
+#### 1.0.0 ####
 * First Release
