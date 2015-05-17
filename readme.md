@@ -1,16 +1,16 @@
-=== Plugin Cards ===
-Contributors: Braad
-Donate link: http://braadmartin.com/
-Tags: plugin, cards, repo, search, query, wordpress.org, author, tag
-Requires at least: 4.0
-Tested up to: 4.3
-Stable tag: 1.1.0
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+# Plugin Cards #
+Contributors: Braad  
+Donate link: http://braadmartin.com/  
+Tags: plugin, cards, repo, search, query, wordpress.org, author, tag  
+Requires at least: 4.0  
+Tested up to: 4.3  
+Stable tag: 1.1.0  
+License: GPLv2 or later  
+License URI: http://www.gnu.org/licenses/gpl-2.0.html  
 
 Display plugin cards that match those introduced in WordPress 4.0. Uses the wordpress.org API and supports custom queries.
 
-== Description ==
+## Description ##
 
 Plugin Cards lets you display WordPress 4.0 style cards with plugin information for any plugin that lives on the wordpress.org repository. All of the custom queries that are possible using the wordpress.org API are possible with this plugin, including queries for plugins by:
 
@@ -28,7 +28,7 @@ I have also included a number of filters in the plugin that allow you to customi
 
 This plugin is [on Github](https://github.com/BraadMartin/plugin-cards "Plugin Cards on Github") and I encourage feature requests and pull requests.
 
-= Features =
+### Features ###
 
 * Query the wordpress.org plugin repo by all methods supported by the wordpress.org API, including by slug, author, tag, popular, new, beta, user's favorites, and search term
 * Cards match the design introduced in WordPress 4.0
@@ -43,7 +43,7 @@ This plugin is [on Github](https://github.com/BraadMartin/plugin-cards "Plugin C
 
 With Plugin Cards you can easily display a custom list of plugins for any purpose.
 
-= Usage =
+## Usage ##
 
 This plugin adds a shortcode `[plugin_cards]` that you can use to display the plugin cards anywhere on your site.
 
@@ -64,7 +64,7 @@ You can also set the max number of results using the max_results parameter like 
 
 	[plugin_cards max_results="10" browse="popular"]
 
-= Advanced Usage =
+## Advanced Usage ##
 
 This plugin includes a number of filters that you can use to customize the display of the cards and add plugin information to the cards. I recommend reading through the code if you really want to understand how the filters can be used. Here are some examples:
 
@@ -154,50 +154,50 @@ There is also one special filter `plugin_cards_cache_expiration` that allows you
 
 If you want a hook added just let me know. Pull requests are welcome [on Github](https://github.com/BraadMartin/plugin-cards "Plugin Cards on Github").
 
-== Installation ==
+## Installation ##
 
-= Manual Installation =
+### Manual Installation ###
 
 1. Upload the entire `/plugin-cards` directory to the `/wp-content/plugins/` directory.
 1. Activate Plugin Cards through the 'Plugins' menu in WordPress.
 
-= Better Installation =
+### Better Installation ###
 
 1. Go to Plugins > Add New in your WordPress admin and search for Plugin Cards.
 1. Click Install.
 
-== Frequently Asked Questions ==
+## Frequently Asked Questions ##
 
-= How does it work? =
+### How does it work? ###
 
 When you navigate to the plugin install screen from the wp-admin dashboard on your site, a request goes out to the wordpress.org API to grab the information about plugins in the official repository. This plugin includes the core functionality used to fetch the plugin information from the API on the front end of your site and adds a shortcode for easy query building and portability.
 
-= Can I query by multiple parameters at once? =
+### Can I query by multiple parameters at once? ###
 
 At this time the wordpress.org API can only be queried by one of the included query parameters at a time. If the API ever allows more complex queries, I'll be happy to add support for them to this plugin.
 
-= How does the plugin cache results? =
+### How does the plugin cache results? ###
 
 This plugin uses transients to store the results from each unique API request. This minimizes hits on the API and dramatically speeds up the loading of the cards. The expiration on the transients is set to 15 minutes by default, but you can use the filter `plugin_cards_cache_expiration` to set your own cache expiration.
 
-== Screenshots ==
+## Screenshots ##
 
 1. Output of the [plugin_cards] shortcode
 2. Small screen single column view
 
-== Changelog ==
+## Changelog ##
 
-= 1.1.0 =
+### 1.1.0 ###
 * Introduced some JS to ensure we are always showing the right number of columns
 * Switched to using Dashicons for the star ratings
 
-= 1.0.0 =
+### 1.0.0 ###
 * First Release
 
-== Upgrade Notice ==
+## Upgrade Notice ##
 
-= 1.1.0 =
+### 1.1.0 ###
 * No breaking changes :)
 
-= 1.0.0 =
+### 1.0.0 ###
 * First Release
