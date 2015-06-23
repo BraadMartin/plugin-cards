@@ -183,7 +183,12 @@ This plugin uses transients to store the results from each unique API request. T
 ## Screenshots ##
 
 1. Output of the [plugin_cards] shortcode
+
+![Output of the plugin_cards shortcode](https://raw.githubusercontent.com/BraadMartin/plugin-cards/master/assets/screenshot-1.png)
+
 2. Small screen single column view
+
+![Small screen single column view](https://raw.githubusercontent.com/BraadMartin/plugin-cards/master/assets/screenshot-2.png)
 
 ## Changelog ##
 
