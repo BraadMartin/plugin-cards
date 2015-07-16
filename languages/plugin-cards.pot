@@ -1,0 +1,64 @@
+# Copyright (C) 2015 Plugin Cards
+# This file is distributed under the same license as the Plugin Cards package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Plugin Cards 1.2.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/plugin-cards\n"
+"POT-Creation-Date: 2015-07-16 05:45:18+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: plugin-cards.php:364
+msgid "Download"
+msgstr ""
+
+#: plugin-cards.php:380
+msgid "By"
+msgstr ""
+
+#: plugin-cards.php:457
+msgid "Last Updated"
+msgstr ""
+
+#: plugin-cards.php:458
+msgid "%s ago"
+msgstr ""
+
+#: plugin-cards.php:473
+msgctxt "Active plugin installs"
+msgid "1+ Million"
+msgstr ""
+
+#: plugin-cards.php:477
+msgid "%s Active Installs"
+msgstr ""
+
+#: plugin-cards.php:491
+msgid "Compatible up to"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Plugin Cards"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://wordpress.org/plugins/plugin-cards/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Display plugin cards that match the style introduced in WordPress 4.0. Uses "
+"the wordpress.org API and supports custom queries."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Braad Martin"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://braadmartin.com"
+msgstr ""
