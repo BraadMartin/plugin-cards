@@ -1,14 +1,14 @@
 # Plugin Cards #
-Contributors: Braad  
-Donate link: http://braadmartin.com/  
-Tags: plugin, cards, repo, search, query, wordpress.org, author, tag  
-Requires at least: 4.0  
-Tested up to: 4.3  
-Stable tag: 1.1.0  
-License: GPLv2 or later  
-License URI: http://www.gnu.org/licenses/gpl-2.0.html  
+Contributors: Braad
+Donate link: http://braadmartin.com/
+Tags: plugin, cards, card, repo, search, query, wordpress.org, author, tag
+Requires at least: 4.0
+Tested up to: 4.3
+Stable tag: 1.2.0
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Display plugin cards that match those introduced in WordPress 4.0. Uses the wordpress.org API and supports custom queries.
+Display plugin cards that match the style introduced in WordPress 4.0. Uses the wordpress.org API and supports custom queries.
 
 ## Description ##
 
@@ -59,6 +59,8 @@ The following parameters can be used to create your query:
 	[plugin_cards search="gallery"]
 
 **Note:** The wordpress.org API only supports querying by one parameter at a time, so currently only one parameter can be included in the shortcode to build the query. If this ever changes I will add support for querying by multiple parameters to this plugin.
+
+**Note:** The parameter is required for the shortcode to work. Simply using [plugin_cards] will result in a silent fail. 
 
 You can also set the max number of results using the max_results parameter like this:
 
@@ -126,6 +128,7 @@ The complete list of simple filters that work exactly like plugin_cards_plugin_u
 There are also some advanced filters that allow you to override the HTML output of entire sections, including:
 
 	plugin_cards_plugin_icon
+	plugin_cards_action_links
 	plugin_cards_plugin_rating
 	plugin_cards_last_updated
 	plugin_cards_install_count
@@ -178,7 +181,7 @@ At this time the wordpress.org API can only be queried by one of the included qu
 
 #### How does the plugin cache results? ####
 
-This plugin uses transients to store the results from each unique API request. This minimizes hits on the API and dramatically speeds up the loading of the cards. The expiration on the transients is set to 15 minutes by default, but you can use the filter `plugin_cards_cache_expiration` to set your own cache expiration.
+This plugin uses transients to store the results from each unique API request. This minimizes hits on the API and dramatically speeds up the loading of the cards. The expiration on the transients is set to 2 hours by default, but you can use the filter `plugin_cards_cache_expiration` to set your own cache expiration.
 
 ## Screenshots ##
 
@@ -192,6 +195,14 @@ This plugin uses transients to store the results from each unique API request. T
 
 ## Changelog ##
 
+#### 1.2.0 ####
+* Fixed a bug that was causing the caching to fail if two different queries of the same type were made
+* Improved CSS to incorporate 4.3 core changes and provide better responsive behavior and theme compatibility
+* Reintroduced a "Download" button on the top right of the cards
+* Introduced a new filter `plugin_cards_action_links` that can be used to hide the "Download" button
+* Changed the default cache expiration to 2 hours
+* Tested with the latest WordPress 4.3
+
 #### 1.1.0 ####
 * Introduced some JS to ensure we are always showing the right number of columns
 * Switched to using Dashicons for the star ratings
@@ -200,6 +211,9 @@ This plugin uses transients to store the results from each unique API request. T
 * First Release
 
 ## Upgrade Notice ##
+
+#### 1.2.0 ####
+* No breaking changes :)
 
 #### 1.1.0 ####
 * No breaking changes :)
