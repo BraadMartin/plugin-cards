@@ -153,7 +153,7 @@ These filters can be used like this:
 	}
 	add_filter( 'plugin_cards_plugin_icon', 'custom_plugin_card_icons', 10, 3 );
 
-There is also one special filter `plugin_cards_cache_expiration` that allows you to set how long you want the results of the API request to be cached. The default is 15 minutes (expressed as number of seconds).
+There is also one special filter `plugin_cards_cache_expiration` that allows you to set how long you want the results of the API request to be cached. The default is 2 hours (expressed as number of seconds).
 
 If you want a hook added just let me know. Pull requests are welcome [on Github](https://github.com/BraadMartin/plugin-cards "Plugin Cards on Github").
 
