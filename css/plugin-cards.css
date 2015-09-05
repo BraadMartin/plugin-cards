@@ -117,6 +117,7 @@
 
 .plugin-cards .plugin-action-buttons li {
 	margin-bottom: 10px;
+	list-style-type: none;
 }
 
 .plugin-cards .plugin-action-buttons .button {
