@@ -4,7 +4,7 @@ Donate link: http://braadmartin.com/
 Tags: plugin, cards, card, repo, search, query, wordpress.org, author, tag
 Requires at least: 4.0
 Tested up to: 4.3
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -195,6 +195,11 @@ This plugin uses transients to store the results from each unique API request. T
 
 ## Changelog ##
 
+#### 1.2.1 ####
+* Icon links now open in a new window
+* Minor CSS tweak for better matching core styling
+* JS is now even smaller (2kb)
+
 #### 1.2.0 ####
 * Fixed a bug that was causing the caching to fail if two different queries of the same type were made
 * Improved CSS to incorporate 4.3 core changes and provide better responsive behavior and theme compatibility
@@ -212,11 +217,22 @@ This plugin uses transients to store the results from each unique API request. T
 
 ## Upgrade Notice ##
 
+#### 1.2.1 ####
+* Icon links now open in a new window
+* Minor CSS tweak for better matching core styling
+* JS is now even smaller (2kb)
+
 #### 1.2.0 ####
-* No breaking changes :)
+* Fixed a bug that was causing the caching to fail if two different queries of the same type were made
+* Improved CSS to incorporate 4.3 core changes and provide better responsive behavior and theme compatibility
+* Reintroduced a "Download" button on the top right of the cards
+* Introduced a new filter `plugin_cards_action_links` that can be used to hide the "Download" button
+* Changed the default cache expiration to 2 hours
+* Tested with the latest WordPress 4.3
 
 #### 1.1.0 ####
-* No breaking changes :)
+* Introduced some JS to ensure we are always showing the right number of columns
+* Switched to using Dashicons for the star ratings
 
 #### 1.0.0 ####
 * First Release
