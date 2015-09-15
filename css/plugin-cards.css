@@ -43,6 +43,7 @@
 	position: relative;
 	padding: 20px 20px 10px;
 	min-height: 138px;
+	box-sizing: content-box;
 }
 
 .plugin-cards div.action-links,

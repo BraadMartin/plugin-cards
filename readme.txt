@@ -4,7 +4,7 @@ Donate link: http://braadmartin.com/
 Tags: plugin, cards, card, repo, search, query, wordpress.org, author, tag
 Requires at least: 4.0
 Tested up to: 4.3
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -190,6 +190,9 @@ This plugin uses transients to store the results from each unique API request. T
 
 == Changelog ==
 
+= 1.2.2 =
+* Minor CSS improvements for better theme compatibility
+
 = 1.2.1 =
 * Icon links now open in a new window
 * Minor CSS tweak for better matching core styling
@@ -211,6 +214,9 @@ This plugin uses transients to store the results from each unique API request. T
 * First Release
 
 == Upgrade Notice ==
+
+= 1.2.2 =
+* Minor CSS improvements for better theme compatibility
 
 = 1.2.1 =
 * Icon links now open in a new window
